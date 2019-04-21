@@ -28,7 +28,6 @@ public class AppTest {
 
     private static ServerThread st;
     private static Database db;
-    // private static ArrayList<String> previous = new ArrayList<>();
 
     @BeforeClass
     public static void before() throws InterruptedException, ClassNotFoundException, SQLException {

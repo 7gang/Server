@@ -40,7 +40,7 @@ class ConnectionThread extends Thread{
                 parseInput(request);
                 interrupt();
 
-            } catch (SQLException e) {
+            } catch (SQLException | IllegalArgumentException e) {
                 e.printStackTrace();
                 sendFailiure();
                 socket.shutdownOutput();
@@ -67,7 +67,7 @@ class ConnectionThread extends Thread{
 
     }
 
-    private void parseInput(ArrayList<String> request) throws SQLException, IOException {
+    private void parseInput(ArrayList<String> request) throws SQLException, IOException, IllegalArgumentException {
         
         System.out.println(request);
         switch(request.size() > 0 ? request.get(0) : "") {
@@ -78,23 +78,28 @@ class ConnectionThread extends Thread{
                 break;
 
             case "add":
+                if (request.size() < 2)
+                    throw new IllegalArgumentException();
                 db.addQuote(request.get(1));
                 sendData(db.getData());
                 break;
 
             case "edit":
+                if (request.size() < 3)
+                    throw new IllegalArgumentException();
                 db.editQuote(request.get(1), request.get(2));
                 sendData(db.getData());
                 break;
 
             case "delete":
+                if (request.size() < 2)
+                    throw new IllegalArgumentException();
                 db.deleteQuote(request.get(1));
                 sendData(db.getData());
                 break;
 
             default:
-                sendFailiure();
-                socket.shutdownOutput();
+                throw new IllegalArgumentException();
 
         }
 
