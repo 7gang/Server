@@ -9,7 +9,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 /**
- * A seperate thread that handles a client query form a TCP socket
+ * A seperate thread that handles a client query from a TCP socket
  */
 class ConnectionThread extends Thread{
 
@@ -24,7 +24,7 @@ class ConnectionThread extends Thread{
      */
     public ConnectionThread(Database db, Socket clientSocket) {
 
-        // establish the number of this ConnetionThread instance, catching a potetion overflow
+        // establish the number of this ConnetionThread instance, catching a potential overflow
         super("SocketThread#" + number++);
         if (number == Integer.MAX_VALUE)
             number = 0;
@@ -54,7 +54,7 @@ class ConnectionThread extends Thread{
                 interrupt();
 
             } catch (SQLException | IllegalArgumentException e) {
-                // if the request could not be processed because of reasons not to do with the network connection, attempt to send back a failire response
+                // if the request could not be processed because of reasons not to do with the network connection, attempt to send back a failiure response
                 e.printStackTrace();
                 sendFailiure();
                 socket.shutdownOutput();
@@ -135,7 +135,7 @@ class ConnectionThread extends Thread{
                 break;
 
             default:
-                // throw an error if the supplied lines did not correlate to any supported response
+                // throw an error if the supplied lines did not correlate to any supported action
                 throw new IllegalArgumentException();
 
         }
@@ -162,7 +162,7 @@ class ConnectionThread extends Thread{
      */
     private void sendSuccess() throws IOException {
         PrintWriter out = new PrintWriter(socket.getOutputStream(), true); // create a new output stream
-        // send the success code
+        // send the success response code
         out.println("success");
         out.println("1");
     }
@@ -173,7 +173,7 @@ class ConnectionThread extends Thread{
      */
     private void sendFailiure() throws IOException {
         PrintWriter out = new PrintWriter(socket.getOutputStream(), true); // create a new output stream
-        // send the failiure response
+        // send the failiure response code
         out.println("success");
         out.println("0");
     }

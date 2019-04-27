@@ -22,7 +22,7 @@ public class App {
 					try {
 						ss.close(); // closing attempt
 					} catch (IOException e) {
-						// disrigard any errors
+						// disregard any errors
 						System.out.println("Server socket could not be gracefully closed!");
 						e.printStackTrace();
 					}
@@ -40,7 +40,7 @@ public class App {
 
 			}
 			
-		} catch (IOException | SQLException | ClassNotFoundException e) {
+		} catch (IOException | SQLException e) {
 			// if any error happens, panic and quit
 			System.out.println("Encountered fatal error: " + e);
 			e.printStackTrace();

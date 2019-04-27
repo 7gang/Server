@@ -9,22 +9,20 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 
 /**
- * Bridging the gap between h2/SQL and java
+ * Bridging the gap between h2/SQL and Java
  */
 public class Database {
 
-	private String address; // the ip address of the h2 server
+	private String address; // the IP address of the h2 server
 
 	/**
 	 * Initialize a new Database object
-	 * @param address the ip address of the h2 server
-	 * @throws ClassNotFoundException in case the h2 driver could not be found
+	 * @param address the IP address of the h2 server
 	 * @throws SQLException in case the table could not be created
 	 */
-	public Database(String address) throws ClassNotFoundException, SQLException {
+	public Database(String address) throws SQLException {
 
 		this.address = address;
-		Class.forName("org.h2.Driver"); // make sure this class exists
 		
 		// figure out if the database is new and needs to be setup or not
 		ArrayList<String> data = null;
@@ -41,9 +39,8 @@ public class Database {
 	/**
 	 * Initialize a new database object using an in-memory instance of h2
 	 * @throws SQLException in case the table could not be created
-	 * @throws ClassNotFoundException in case the h2 driver could not be found
 	 */
-	public Database() throws SQLException, ClassNotFoundException {
+	public Database() throws SQLException {
 		this("jdbc:h2:mem:test");
 	}
 
@@ -125,7 +122,7 @@ public class Database {
 	}
 
 	/**
-	 * Execute a mutation-query on the database. This should be things like adding a quote, removing or editing
+	 * Execute a mutation-query on the database. This should be things like adding a quote, removing or editing existing ones
 	 * @param query the SQL String to execute onto the database
 	 * @throws SQLException in case the given query could not be executed onto the database
 	 */
